@@ -162,6 +162,7 @@ def train(dataloader, model, loss_fn, optimizer):
 
 ##############################################################################
 # We also check the model's performance against the test dataset to ensure it is learning.
+# pred.argmax(1) 1 compute in the dimension of column
 
 def test(dataloader, model, loss_fn):
     size = len(dataloader.dataset)
@@ -239,7 +240,8 @@ x, y = test_data[0][0], test_data[0][1]
 with torch.no_grad():
     x = x.to(device)
     pred = model(x)
-    predicted, actual = classes[pred[0].argmax(0)], classes[y]
+    #predicted, actual = classes[pred[0].argmax(0)], classes[y]
+    predicted, actual = classes[pred.argmax(1)], classes[y]
     print(f'Predicted: "{predicted}", Actual: "{actual}"')
 
 
